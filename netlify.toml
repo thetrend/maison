@@ -1,14 +1,13 @@
 [build]
   command = "react-scripts build"
-  functions = "functions"
+  functions = "functions/"
   publish = "build"
 
 [[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/:splat"
   status = 200
-  force = true
 
-  ## (optional) Settings for Netlify Dev
-  ## https://github.com/netlify/cli/blob/main/docs/netlify-dev.md#project-detection
-  ## more info on configuring this file: https://www.netlify.com/docs/netlify-toml-reference/
+## (optional) Settings for Netlify Dev
+## https://github.com/netlify/cli/blob/main/docs/netlify-dev.md#project-detection
+## more info on configuring this file: https://www.netlify.com/docs/netlify-toml-reference/

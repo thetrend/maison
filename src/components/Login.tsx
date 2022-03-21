@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 interface Credentials {
   email: string;
@@ -17,6 +18,9 @@ const Login = () => {
   const emailAddresses: Array<string> | undefined = (process.env.REACT_APP_AUTHORIZED_USERS)?.split(',');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => setFormData({ ...formData, [e.target.name]: e.target.value });
+
+  axios.get('/api/auth')
+    .then(res => console.log(res.data));
 
   return (
     <>
