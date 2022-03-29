@@ -1,39 +1,34 @@
 import React from 'react';
-import axios from 'axios';
-
-interface Credentials {
+interface credentialType {
   email: string;
   password: string;
 }
 
-const Login = () => {
-  const [formData, setFormData] = React.useState<Credentials>({
+const Login = (): JSX.Element => {
+  const [formData, setFormData] = React.useState<credentialType>({
     email: '',
     password: '',
   });
 
-  const { email, password }: Credentials = formData;
+  const { email, password }: credentialType = formData;
 
   // TODO: move this to a netlify function
   const emailAddresses: Array<string> | undefined = (process.env.REACT_APP_AUTHORIZED_USERS)?.split(',');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  axios.get('/api/auth')
-    .then(res => console.log(res.data));
+  const handleForm = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (emailAddresses?.includes(email) && password === '123') {
+
+    }
+  };
 
   return (
     <>
       <h1 className="heading text-5xl">: hello</h1>
-      <form onSubmit={(e): void => {
-        e.preventDefault();
-        if (emailAddresses && emailAddresses.includes(email) && password === 'password') {
-          // TODO: actually do something with login credentials --> hook up to Fauna via netlify functions... move the above outta here
-          console.log('Authorized. Please proceed.');
-        } else {
-          console.log('Nope');
-        }
-      }}>
+      <form onSubmit={handleForm}>
         <input type="email" name="email" placeholder="Email" value={email} onChange={handleChange} />
         <input type="password" name="password" placeholder="Password" value={password} onChange={handleChange} />
         <button type="submit">Login</button>
