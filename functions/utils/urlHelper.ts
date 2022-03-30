@@ -1,6 +1,10 @@
 import { Event } from "@netlify/functions/dist/function/event";
 
-
+/**
+ * @function urlHelper
+ * @param event
+ * @returns object
+ */
 
 function urlHelper(event: Event) {
   const path: string = event.path.replace(/\/api\/+/, '');
@@ -9,7 +13,7 @@ function urlHelper(event: Event) {
   const endpoint: string = segments[segments.length - 1];
 
   this.path = path;
-  this.segments = segments;
+  this.segments = segments.filter(segment => segment !== func);
   this.func = func;
   this.endpoint = endpoint;
 }

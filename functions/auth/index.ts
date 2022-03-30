@@ -8,7 +8,7 @@ const handler: Handler = async (event) => {
 
   return {
     statusCode: 200,
-    body: JSON.stringify({ segments: segments.filter(segment => segment !== func), funcName: func, endpoint, path })
+    body: JSON.stringify({ segments, func, endpoint, path })
   };
 };
 
