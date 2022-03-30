@@ -1,10 +1,9 @@
 import { Handler } from '@netlify/functions';
-let url = require('../utils/urlHelper');
+import urlHelper, { urlObject } from '../utils/urlHelper';
 
 const handler: Handler = async (event) => {
-  let ApiUrl = new url.urlHelper(event);
-
-  const { path, segments, func, endpoint } = ApiUrl;
+  let ApiUrl = new urlHelper(event);
+  const { path, segments, func, endpoint }: urlObject = ApiUrl;
 
   return {
     statusCode: 200,
