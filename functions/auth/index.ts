@@ -1,13 +1,10 @@
 import { Handler } from '@netlify/functions';
-
+let urlHelper = require('../utils/urlHelper');
 const handler: Handler = async (event) => {
-  const path: string = event.path.replace(/\/api\/+/, '');
-  const segments: string[] = path.split('/').filter(segment => segment);
-  const func: string = segments[0];
-  const endpoint: string = segments[segments.length - 1];
+  let ApiUrl = new urlHelper.ApiUrl(event);
   return {
     statusCode: 200,
-    body: JSON.stringify({ segments: segments.filter(segment => segment !== func), func, endpoint })
+    body: JSON.stringify({ segments: (ApiUrl.segments).filter(segment => segment !== ApiUrl.func), funcName: ApiUrl.func, endpoint: ApiUrl.endpoint })
   };
 };
 
