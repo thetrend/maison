@@ -1,18 +1,26 @@
 import { Handler } from '@netlify/functions';
-import urlHelper, { urlObject } from '../utils/urlHelper';
-import message from '../utils/messageHelper';
 
-const handler: Handler = async (event) => {
+// Helpers
+import urlHelper, { urlObject } from '../utils/urlHelper';
+import messageHelper from '../utils/messageHelper';
+
+// Auth Functions
+import signup from './signup';
+
+const handler: Handler = async (event, context, callback) => {
   let ApiUrl = new urlHelper(event);
   const { endpoint }: urlObject = ApiUrl;
-  
-  switch (endpoint) {
-    case 'signup':
-    case 'login':
-    case 'logout':
-      return message(endpoint);
-    default:
-      return message('Server Error', 500);
+
+  try {
+    switch (endpoint) {
+      case 'signup':
+        return signup(event);
+      case 'login':
+      case 'logout':
+        return messageHelper(endpoint);
+    }
+  } catch (error) {
+    callback(null, error);
   }
 };
 
