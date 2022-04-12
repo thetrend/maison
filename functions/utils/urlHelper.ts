@@ -1,5 +1,7 @@
-import { Event } from "@netlify/functions/dist/function/event";
+// Netlify (AWS) Types
+import { Event } from '@netlify/functions/dist/function/event';
 
+// Custom Helper Type
 export type urlObject = {
   path: string;
   segments: string[];
@@ -8,21 +10,16 @@ export type urlObject = {
 }
 
 /**
- * @function urlHelper
- * @param event
- * @returns object
+ * @function      urlHelper(event:Event)
+ * @description   Helper function to return the event as destructured variables
+ * @returns       {void}
  */
 
-function urlHelper(event: Event): void {
-  const path = event.path.replace(/\/api\/+/, '');
-  const segments = path.split('/').filter(segment => segment);
-  const func = segments[0];
-  const endpoint = segments[segments.length - 1];
-
-  this.path = path;
-  this.segments = segments.filter(segment => segment !== func);
-  this.func = func;
-  this.endpoint = endpoint;
+export function urlHelper(event: Event): void {
+  // Pass the following variables - don't remember why I structured it this way but it works for now
+  this.path = event.path.replace(/\/api\/+/, '');
+  const segments = this.path.split('/').filter(segment => segment);
+  this.func = segments[0];
+  this.segments = segments.filter(segment => segment !== this.func);
+  this.endpoint = segments[segments.length - 1];
 }
-
-export default urlHelper;
