@@ -16,7 +16,7 @@ import { messageHelper } from '../utils/messageHelper';
  * @route       POST /api/auth/login
  * @access      public
  * @param       event 
- * @returns     HandlerResponse
+ * @returns     {HandlerResponse}
  * @description 
  * @todo        same as signup | move types
  */
@@ -29,9 +29,8 @@ const login = async (event: HandlerEvent): Promise<HandlerResponse> => {
       // 2. Destructure post data from event.body
       let { email, password }: LoginUser = JSON.parse(event.body);
 
-      // 3. Time to bring in the public fauna helper then destructure (dbHelper set to false)
-      let fauna = new dbHelper(false);
-      const { client, q } = fauna;
+      // 3. Time to bring in the public fauna helper
+      const { client, q } = new dbHelper(false);
 
       // 4. Declare responseData, which will take in the result of the below Fauna query
       let responseData: string;

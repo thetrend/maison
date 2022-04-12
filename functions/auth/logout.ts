@@ -22,8 +22,7 @@ const logout = async (event: HandlerEvent): Promise<HandlerResponse> => {
     // 2a. Only proceed if accessing this URL via GET method
     if (event.httpMethod === 'GET') {
       // 3. Time to bring in the private fauna helper then destructure
-      let fauna = new dbHelper();
-      const { client, q } = fauna;
+      const { client, q } = new dbHelper();
 
       // 4a. Query: Logout the authenticated user
       await client.query(

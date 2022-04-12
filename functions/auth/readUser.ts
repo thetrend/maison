@@ -12,7 +12,7 @@ import { messageHelper } from '../utils/messageHelper';
  * @route       GET /api/auth/user
  * @access      private
  * @param       event 
- * @returns     HandlerResponse
+ * @returns     {HandlerResponse}
  * @description Access the current user's public information
  */
 
@@ -22,9 +22,8 @@ const readUser = async (event: HandlerEvent): Promise<HandlerResponse> => {
     // 2. Define responseData for later use
     let responseData: object;
 
-    // 3. Time to bring in the private fauna helper then destructure
-    let fauna = new dbHelper();
-    const { client, q } = fauna;
+    // 3. Time to bring in the private fauna helper
+    const { client, q } = new dbHelper();
 
     // 4a. Only proceed if accessing this URL via GET method
     if (event.httpMethod === 'GET') {

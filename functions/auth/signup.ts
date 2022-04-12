@@ -16,7 +16,7 @@ import { messageHelper } from '../utils/messageHelper';
  * @route       POST /api/auth/signup
  * @access      public
  * @param       event 
- * @returns     HandlerResponse
+ * @returns     {HandlerResponse}
  * @description 
  * @todo        write the description lul | create the logger helper | move types
  */
@@ -77,9 +77,8 @@ const signup = async (event: HandlerEvent): Promise<HandlerResponse> => {
         };
       }
 
-      // 7. Time to bring in the public fauna helper then destructure (dbHelper set to false)
-      let fauna = new dbHelper(false);
-      const { client, q } = fauna;
+      // 7. Time to bring in the public fauna helper
+      const { client, q } = new dbHelper(false);
 
       // 8. Create the Users Collection in Fauna if it doesn't exist
       //    See credit: https://github.com/fauna-labs/todo-vanillajs/blob/main/index.html for an example of this

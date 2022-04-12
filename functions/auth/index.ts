@@ -1,5 +1,5 @@
 // Netlify (AWS) Types
-import { Handler, HandlerEvent } from '@netlify/functions';
+import { Handler, HandlerEvent, HandlerResponse } from '@netlify/functions';
 
 // Helpers
 import { urlHelper, urlObject } from '../utils/urlHelper';
@@ -21,8 +21,8 @@ const handler: Handler = async (event: HandlerEvent) => {
   let GuestLinks: string[] = ['signup', 'login'];
   // 3. Create an array of remaining whitelisted endpoints
   let whiteListLinks: string[] = ['logout','user'];
-  // 4. Define an explicit "any" response
-  let response: any;
+  // 4. Define an explicit "any" response because I don't know what to do with line 48
+  let response: Handler | HandlerResponse | any;
 
   // 5. Loop through available endpoints and provide a default for any non-matching endpoints
   // 5a. Return response as the corresponding function for each endpoint
